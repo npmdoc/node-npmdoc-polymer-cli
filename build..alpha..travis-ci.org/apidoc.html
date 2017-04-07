@@ -1,0 +1,305 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/Polymer/polymer-cli#readme"
+
+    >polymer-cli (v0.17.0)</a>
+</h1>
+<h4>A commandline tool for Polymer projects</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.polymer-cli">module polymer-cli</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.polymer-cli.PolymerCli">
+            function <span class="apidocSignatureSpan">polymer-cli.</span>PolymerCli
+            <span class="apidocSignatureSpan">(args, config)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">polymer-cli.</span>project_config</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.polymer-cli.project_config">module polymer-cli.project_config</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.polymer-cli.project_config.ProjectConfig">
+            function <span class="apidocSignatureSpan">polymer-cli.project_config.</span>ProjectConfig
+            <span class="apidocSignatureSpan">(defaultOptions, overrideOptions)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">polymer-cli.project_config.</span>defaultSourceGlobs</span>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.polymer-cli" id="apidoc.module.polymer-cli">module polymer-cli</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.polymer-cli.PolymerCli" id="apidoc.element.polymer-cli.PolymerCli">
+        function <span class="apidocSignatureSpan">polymer-cli.</span>PolymerCli
+        <span class="apidocSignatureSpan">(args, config)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">class PolymerCli {
+    constructor(args, config) {
+        this.commands = new Map();
+        // If the &#x22;--quiet&#x22;/&#x22;-q&#x22; flag is ever present, set our global logging
+        // to quiet mode. Also set the level on the logger we&#x27;ve already created.
+        if (args.indexOf(&#x27;--quiet&#x27;) &#x3e; -1 || args.indexOf(&#x27;-q&#x27;) &#x3e; -1) {
+            logging.setQuiet();
+        }
+        // If the &#x22;--verbose&#x22;/&#x22;-v&#x22; flag is ever present, set our global logging
+        // to verbose mode. Also set the level on the logger we&#x27;ve already created.
+        if (args.indexOf(&#x27;--verbose&#x27;) &#x3e; -1 || args.indexOf(&#x27;-v&#x27;) &#x3e; -1) {
+            logging.setVerbose();
+        }
+        this.args = args;
+        logger.debug(&#x27;got args:&#x27;, { args: args });
+        if (config) {
+            this.defaultConfig = config;
+            logger.debug(&#x27;got default config from constructor argument:&#x27;, { config: this.defaultConfig });
+        }
+        else {
+            this.defaultConfig = project_config_1.ProjectConfig.fromConfigFile(&#x27;polymer.json&#x27;);
+            logger.debug(&#x27;got default config from file:&#x27;, { config: this.defaultConfig });
+        }
+        this.addCommand(new build_1.BuildCommand());
+        this.addCommand(new help_1.HelpCommand(this.commands));
+        this.addCommand(new init_1.InitCommand());
+        this.addCommand(new lint_1.LintCommand());
+        this.addCommand(new serve_1.ServeCommand());
+        this.addCommand(new test_1.TestCommand());
+    }
+    addCommand(command) {
+        logger.debug(&#x27;adding command&#x27;, command.name);
+        this.commands.set(command.name, command);
+    }
+    mergeDefinitions(command, globals) {
+        let mergedArgs = new Map();
+        let defaultOption = null;
+        let addAll = (args) =&#x3e; {
+            for (let definition of args) {
+                let name = definition.name;
+                let oldDefinition = mergedArgs.get(name);
+                if (oldDefinition == null) {
+                    mergedArgs.set(definition.name, definition);
+                }
+                else {
+                    let mergedDefinition = Object.assign({}, oldDefinition);
+                    for (let propName of Object.keys(definition)) {
+                        if (propName === &#x27;name&#x27;)
+                            continue;
+                        let propValue = definition[propName];
+                        let oldProp = oldDefinition[propName];
+                        if (oldProp == null) {
+                            mergedDefinition[propName] = propValue;
+                        }
+                        else {
+                            throw new Error(`duplicate argument definition in ${command.name}: ${name}.${propName}`);
+                        }
+                    }
+                    mergedArgs.set(name, mergedDefinition);
+                    definition = mergedDefinition;
+                }
+                if (definition.defaultOption) {
+                    if (defaultOption &#x26;&#x26; defaultOption !== name) {
+                        throw new Error(`Multiple default arguments in ${command.name}: ` +
+                            `${defaultOption} and ${name}`);
+                    }
+                    defaultOption = name;
+                }
+            }
+        };
+        if (globals)
+            addAll(globals);
+        if (command.args)
+            addAll(command.args);
+        return Array.from(mergedArgs.values());
+    }
+    run() {
+        let helpCommand = this.commands.get(&#x27;help&#x27;);
+        let commandNames = Array.from(this.commands.keys());
+        let parsedArgs;
+        logger.debug(&#x27;running...&#x27;);
+        // If the &#x22;--version&#x22; flag is ever present, just print
+        // the current version. Useful for globally installed CLIs.
+        if (this.args.indexOf(&#x27;--version&#x27;) &#x3e; -1) {
+            console.log(require(&#x27;../package.json&#x27;).version);
+            return Promise.resolve();
+        }
+        try {
+            parsedArgs = commandLineCommands(commandNames, this.args);
+        }
+        catch (error) {
+            // Polymer CLI needs a valid command name to do anything. If the given
+            // command is invalid, run t ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.polymer-cli.project_config" id="apidoc.module.polymer-cli.project_config">module polymer-cli.project_config</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.polymer-cli.project_config.ProjectConfig" id="apidoc.element.polymer-cli.project_config.ProjectConfig">
+        function <span class="apidocSignatureSpan">polymer-cli.project_config.</span>ProjectConfig
+        <span class="apidocSignatureSpan">(defaultOptions, overrideOptions)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">class ProjectConfig {
+    constructor(defaultOptions, overrideOptions) {
+        if (typeof defaultOptions === &#x27;string&#x27;) {
+            defaultOptions = ProjectConfig.fromConfigFile(defaultOptions) || {};
+        }
+        this._init(defaultOptions, overrideOptions);
+    }
+    static fromConfigFile(filepath) {
+        try {
+            let configContent = fs.readFileSync(filepath, &#x27;utf-8&#x27;);
+            return JSON.parse(configContent);
+        }
+        catch (error) {
+            // swallow &#x22;not found&#x22; errors because they are so common / expected
+            if (error.code === &#x27;ENOENT&#x27;) {
+                logger.debug(&#x27;no polymer config file found&#x27;, { file: filepath });
+                return;
+            }
+            // throw all other errors when a config exists but was not properly read
+            logger.error(&#x27;Failed to load/parse polymer config file&#x27;, {
+                file: filepath,
+                err: error.message,
+            });
+            throw error;
+        }
+    }
+    _init(defaultOptions, overrideOptions) {
+        let options = Object.assign({}, defaultOptions, overrideOptions);
+        this.root = process.cwd();
+        this.sourceGlobs = options.sources || options.sourceGlobs || exports.defaultSourceGlobs;
+        this.includeDependencies = options[&#x27;include-dependencies&#x27;] || options.includeDependencies;
+        if (options.root) {
+            this.root = path.resolve(this.root, options.root);
+        }
+        if (options.entrypoint) {
+            this.entrypoint = path.resolve(this.root, options.entrypoint);
+        }
+        else {
+            // fallback
+            this.entrypoint = path.resolve(this.root, &#x27;index.html&#x27;);
+            try {
+                let bowerConfigContent = fs.readFileSync(path.resolve(this.root, &#x27;bower.json&#x27;), &#x27;utf-8&#x27;);
+                let bowerConfig = JSON.parse(bowerConfigContent);
+                if (bowerConfig.main &#x26;&#x26; typeof bowerConfig.main === &#x27;string&#x27;) {
+                    this.entrypoint = path.resolve(this.root, bowerConfig.main);
+                }
+            }
+            catch (error) {
+            }
+        }
+        if (options.shell) {
+            this.shell = path.resolve(this.root, options.shell);
+        }
+        this.fragments = [];
+        // fragment comes from command-line-args `--fragment`
+        let frag = options.fragment || options.fragments;
+        if (frag) {
+            this.fragments = frag.map((e) =&#x3e; path.resolve(this.root, e));
+        }
+        this.inputs = [];
+        if (this.entrypoint)
+            this.inputs.push(this.entrypoint);
+        if (this.shell)
+            this.inputs.push(this.shell);
+        this.inputs = this.inputs.concat(this.fragments);
+    }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
