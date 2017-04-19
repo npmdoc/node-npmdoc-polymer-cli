@@ -1,7 +1,7 @@
 {
     "author": "kai zhu <kaizhu256@gmail.com>",
     "buildNpmdoc": "polymer-cli",
-    "description": "api documentation for [polymer-cli (v0.17.0)](https://github.com/Polymer/polymer-cli#readme) [![npm package](https://img.shields.io/npm/v/npmdoc-polymer-cli.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-polymer-cli) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-polymer-cli.svg)](https://travis-ci.org/npmdoc/node-npmdoc-polymer-cli)",
+    "description": "#### api documentation for  [polymer-cli (v0.17.0)](https://github.com/Polymer/polymer-cli#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-polymer-cli.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-polymer-cli) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-polymer-cli.svg)](https://travis-ci.org/npmdoc/node-npmdoc-polymer-cli)",
     "devDependencies": {
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
         "polymer-cli": "*",
@@ -36,5 +36,5 @@
         "start": "(set -e; export PORT=${PORT:-8080}; utility2 start test.js)",
         "test": "(set -e; export PORT=$(utility2 shServerPortRandom); utility2 test test.js)"
     },
-    "version": "0.0.1"
+    "version": "0.0.2"
 }
