@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="https://github.com/Polymer/polymer-cli#readme"
-
-    >polymer-cli (v0.17.0)</a>
+    <a href="https://github.com/Polymer/polymer-cli#readme">polymer-cli (v0.17.0)</a>
 </h1>
 <h4>A commandline tool for Polymer projects</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.polymer-cli">module polymer-cli</a><ol>
 
@@ -246,25 +239,25 @@
     <li>description and source-code<pre class="apidocCodePre">class PolymerCli {
     constructor(args, config) {
         this.commands = new Map();
-        // If the &#x22;--quiet&#x22;/&#x22;-q&#x22; flag is ever present, set our global logging
-        // to quiet mode. Also set the level on the logger we&#x27;ve already created.
-        if (args.indexOf(&#x27;--quiet&#x27;) &#x3e; -1 || args.indexOf(&#x27;-q&#x27;) &#x3e; -1) {
+        // If the "--quiet"/"-q" flag is ever present, set our global logging
+        // to quiet mode. Also set the level on the logger we've already created.
+        if (args.indexOf('--quiet') &gt; -1 || args.indexOf('-q') &gt; -1) {
             logging.setQuiet();
         }
-        // If the &#x22;--verbose&#x22;/&#x22;-v&#x22; flag is ever present, set our global logging
-        // to verbose mode. Also set the level on the logger we&#x27;ve already created.
-        if (args.indexOf(&#x27;--verbose&#x27;) &#x3e; -1 || args.indexOf(&#x27;-v&#x27;) &#x3e; -1) {
+        // If the "--verbose"/"-v" flag is ever present, set our global logging
+        // to verbose mode. Also set the level on the logger we've already created.
+        if (args.indexOf('--verbose') &gt; -1 || args.indexOf('-v') &gt; -1) {
             logging.setVerbose();
         }
         this.args = args;
-        logger.debug(&#x27;got args:&#x27;, { args: args });
+        logger.debug('got args:', { args: args });
         if (config) {
             this.defaultConfig = config;
-            logger.debug(&#x27;got default config from constructor argument:&#x27;, { config: this.defaultConfig });
+            logger.debug('got default config from constructor argument:', { config: this.defaultConfig });
         }
         else {
-            this.defaultConfig = project_config_1.ProjectConfig.fromConfigFile(&#x27;polymer.json&#x27;);
-            logger.debug(&#x27;got default config from file:&#x27;, { config: this.defaultConfig });
+            this.defaultConfig = project_config_1.ProjectConfig.fromConfigFile('polymer.json');
+            logger.debug('got default config from file:', { config: this.defaultConfig });
         }
         this.addCommand(new build_1.BuildCommand());
         this.addCommand(new help_1.HelpCommand(this.commands));
@@ -274,13 +267,13 @@
         this.addCommand(new test_1.TestCommand());
     }
     addCommand(command) {
-        logger.debug(&#x27;adding command&#x27;, command.name);
+        logger.debug('adding command', command.name);
         this.commands.set(command.name, command);
     }
     mergeDefinitions(command, globals) {
         let mergedArgs = new Map();
         let defaultOption = null;
-        let addAll = (args) =&#x3e; {
+        let addAll = (args) =&gt; {
             for (let definition of args) {
                 let name = definition.name;
                 let oldDefinition = mergedArgs.get(name);
@@ -290,7 +283,7 @@
                 else {
                     let mergedDefinition = Object.assign({}, oldDefinition);
                     for (let propName of Object.keys(definition)) {
-                        if (propName === &#x27;name&#x27;)
+                        if (propName === 'name')
                             continue;
                         let propValue = definition[propName];
                         let oldProp = oldDefinition[propName];
@@ -305,7 +298,7 @@
                     definition = mergedDefinition;
                 }
                 if (definition.defaultOption) {
-                    if (defaultOption &#x26;&#x26; defaultOption !== name) {
+                    if (defaultOption &amp;&amp; defaultOption !== name) {
                         throw new Error(`Multiple default arguments in ${command.name}: ` +
                             `${defaultOption} and ${name}`);
                     }
@@ -320,14 +313,14 @@
         return Array.from(mergedArgs.values());
     }
     run() {
-        let helpCommand = this.commands.get(&#x27;help&#x27;);
+        let helpCommand = this.commands.get('help');
         let commandNames = Array.from(this.commands.keys());
         let parsedArgs;
-        logger.debug(&#x27;running...&#x27;);
-        // If the &#x22;--version&#x22; flag is ever present, just print
+        logger.debug('running...');
+        // If the "--version" flag is ever present, just print
         // the current version. Useful for globally installed CLIs.
-        if (this.args.indexOf(&#x27;--version&#x27;) &#x3e; -1) {
-            console.log(require(&#x27;../package.json&#x27;).version);
+        if (this.args.indexOf('--version') &gt; -1) {
+            console.log(require('../package.json').version);
             return Promise.resolve();
         }
         try {
@@ -341,11 +334,11 @@
 // See https://github.com/yeoman/update-notifier#how for how this works.
 updateNotifier({pkg: packageJson}).notify();
 
-resolve(&#x27;polymer-cli&#x27;, {basedir: process.cwd()}, function(error, path) {
-let lib = path ? require(path) : require(&#x27;..&#x27;);
+resolve('polymer-cli', {basedir: process.cwd()}, function(error, path) {
+let lib = path ? require(path) : require('..');
 let args = process.argv.slice(2);
 let cli = new lib.<span class="apidocCodeKeywordSpan">PolymerCli</span>(args);
-cli.run().catch((err) =&#x3e; {
+cli.run().catch((err) =&gt; {
   logger.error(`cli runtime exception: ${err}`);
   if (err.stack) {
     logger.error(err.stack);
@@ -386,24 +379,24 @@ cli.run().catch((err) =&#x3e; {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function buildEnvironment(name) {
-    return environments.has(name) &#x26;&#x26; new (environments.get(name.toLowerCase()))();
+    return environments.has(name) &amp;&amp; new (environments.get(name.toLowerCase()))();
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-const environments_1 = require(&#x27;./environments/environments&#x27;);
+const environments_1 = require('./environments/environments');
 exports.globalArguments = [
 {
-    name: &#x27;env&#x27;,
-    description: &#x27;The environment to use to specialize certain commands, &#x27;
-        + &#x27;like build&#x27;,
+    name: 'env',
+    description: 'The environment to use to specialize certain commands, '
+        + 'like build',
     type: function (value) {
         return environments_1.<span class="apidocCodeKeywordSpan">buildEnvironment</span>(value);
     },
-    group: &#x27;global&#x27;,
+    group: 'global',
 },
 {
-    name: &#x27;entrypoint&#x27;,
-    description: &#x27;The main HTML file that will be requested for all routes.&#x27;,
-    group: &#x27;global&#x27;,
+    name: 'entrypoint',
+    description: 'The main HTML file that will be requested for all routes.',
+    group: 'global',
 ...</pre></li>
     </ul>
 
@@ -423,16 +416,16 @@ exports.globalArguments = [
     <ul>
     <li>description and source-code<pre class="apidocCodePre">class Github {
     constructor(opts) {
-        this._token = opts.githubToken || Github.tokenFromFile(&#x27;token&#x27;);
+        this._token = opts.githubToken || Github.tokenFromFile('token');
         this._owner = opts.owner;
         this._repo = opts.repo;
         this._github = opts.githubApi || new GitHubApi({
-            version: &#x27;3.0.0&#x27;,
-            protocol: &#x27;https&#x27;,
+            version: '3.0.0',
+            protocol: 'https',
         });
         if (this._token != null) {
             this._github.authenticate({
-                type: &#x27;oauth&#x27;,
+                type: 'oauth',
                 token: this._token,
             });
         }
@@ -440,74 +433,74 @@ exports.globalArguments = [
     }
     static tokenFromFile(filename) {
         try {
-            return fs.readFileSync(filename, &#x27;utf8&#x27;).trim();
+            return fs.readFileSync(filename, 'utf8').trim();
         }
         catch (error) {
             return null;
         }
     }
     extractLatestRelease(outDir) {
-        return new Promise((resolve, reject) =&#x3e; {
+        return new Promise((resolve, reject) =&gt; {
             let tarPipe = tar.extract(outDir, {
-                ignore: (_, header) =&#x3e; {
+                ignore: (_, header) =&gt; {
                     let splitPath = path.normalize(header.name).split(path.sep);
                     // ignore the top directory in the tarfile to unpack directly to
                     // the cwd
-                    return splitPath.length &#x3c; 1 || splitPath[1] === &#x27;&#x27;;
+                    return splitPath.length &lt; 1 || splitPath[1] === '';
                 },
-                map: (header) =&#x3e; {
+                map: (header) =&gt; {
                     let splitPath = path.normalize(header.name).split(path.sep);
                     let unprefixed = splitPath.slice(1).join(path.sep).trim();
                     // A ./ prefix is needed to unpack top-level files in the tar,
-                    // otherwise they&#x27;re just not written
-                    header.name = path.join(&#x27;.&#x27;, unprefixed);
+                    // otherwise they're just not written
+                    header.name = path.join('.', unprefixed);
                     return header;
                 },
             });
-            this.getLatestRelease().then((release) =&#x3e; {
+            this.getLatestRelease().then((release) =&gt; {
                 let tarballUrl = release.tarball_url;
                 this._request({
                     url: tarballUrl,
                     headers: {
-                        &#x27;User-Agent&#x27;: &#x27;request&#x27;,
-                        &#x27;Authorization&#x27;: (this._token) ? `token ${this._token}` : undefined,
+                        'User-Agent': 'request',
+                        'Authorization': (this._token) ? `token ${this._token}` : undefined,
                     }
                 })
-                    .on(&#x27;response&#x27;, function (response) {
+                    .on('response', function (response) {
                     if (response.statusCode !== 200) {
                         throw new GithubResponseError(response.statusCode, response.statusMessage);
                     }
-                    logger.info(&#x27;Unpacking template files&#x27;);
+                    logger.info('Unpacking template files');
                 })
                     .pipe(gunzip())
                     .pipe(tarPipe)
-                    .on(&#x27;finish&#x27;, () =&#x3e; {
-                    logger.info(&#x27;Finished writing template files&#x27;);
+                    .on('finish', () =&gt; {
+                    logger.info('Finished writing template files');
                     resolve();
                 })
-                    .on(&#x27;error&#x27;, (error) =&#x3e; {
+                    .on('error', (error) =&gt; {
                     throw error;
                 });
             })
-                .catch((error) =&#x3e; {
+                .catch((error) =&gt; {
                 reject(error);
             });
         });
     }
     getLatestRelease() {
-        return new Promise((resolve, reject) =&#x3e; {
+        return new Promise((resolve, reject) =&gt; {
             this._github.repos.getReleases({
                 owner: this._owner,
                 repo: this._repo,
                 per_page: 1,
-            }, (error, result) =&#x3e; {
+            }, (error, result) =&gt; {
                 if (error) {
                     reject(error);
                     return;
                 }
                 if (result.length === 0) {
                     reject(new Error(`${this._owner}/${this._repo} has 0 releases. ` +
-                        &#x27;Cannot get latest release.&#x27;));
+                        'Cannot get latest release.'));
                     return;
                 }
                 resolve(result[0]);
@@ -518,19 +511,19 @@ exports.globalArguments = [
     <li>example usage<pre class="apidocCodePre">...
 class ReyServe {
 build(opts, config) {
-    const bundled = path.join(process.cwd(), &#x27;build/bundled&#x27;);
-    const unbundled = path.join(process.cwd(), &#x27;build/unbundled&#x27;);
-    const reyserveFiles = temp.mkdirSync(&#x27;reyserve&#x27;);
-    return build_1.build(opts, config).then(() =&#x3e; {
-        console.log(&#x27;Downloading reyserve release&#x27;);
-        const repo = new github_1.<span class="apidocCodeKeywordSpan">Github</span>({ owner: &#x27;Polymer&#x27;, repo: &#x27;reyserve
-&#x27; });
+    const bundled = path.join(process.cwd(), 'build/bundled');
+    const unbundled = path.join(process.cwd(), 'build/unbundled');
+    const reyserveFiles = temp.mkdirSync('reyserve');
+    return build_1.build(opts, config).then(() =&gt; {
+        console.log('Downloading reyserve release');
+        const repo = new github_1.<span class="apidocCodeKeywordSpan">Github</span>({ owner: 'Polymer', repo: 'reyserve
+' });
         return repo.extractLatestRelease(reyserveFiles);
     })
-        .then(() =&#x3e; {
-        console.log(&#x27;Coyping reyserve files&#x27;);
+        .then(() =&gt; {
+        console.log('Coyping reyserve files');
         // TODO(garlicnation): One server serves bundled and unbundled.
-        REYSERVE_FILES.forEach((file) =&#x3e; {
+        REYSERVE_FILES.forEach((file) =&gt; {
             fs.copySync(path.join(reyserveFiles, file), path.join(bundled, file));
 ...</pre></li>
     </ul>
@@ -551,11 +544,11 @@ build(opts, config) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">class HelpCommand {
     constructor(commands) {
-        this.name = &#x27;help&#x27;;
-        this.description = &#x27;Shows this help message, or help for a specific command&#x27;;
+        this.name = 'help';
+        this.description = 'Shows this help message, or help for a specific command';
         this.args = [{
-                name: &#x27;command&#x27;,
-                description: &#x27;The command to display help for&#x27;,
+                name: 'command',
+                description: 'The command to display help for',
                 defaultOption: true,
             }];
         this.commands = new Map();
@@ -568,17 +561,17 @@ build(opts, config) {
                 raw: true,
             },
             {
-                header: &#x27;Available Commands&#x27;,
-                content: Array.from(this.commands.values()).map((command) =&#x3e; {
+                header: 'Available Commands',
+                content: Array.from(this.commands.values()).map((command) =&gt; {
                     return { name: command.name, summary: command.description };
                 }),
             },
             {
-                header: &#x27;Global Options&#x27;,
+                header: 'Global Options',
                 optionList: args_1.globalArguments
             },
             {
-                content: &#x27;Run `polymer help &#x3c;command&#x3e;` for help with a specific command.&#x27;,
+                content: 'Run `polymer help &lt;command&gt;` for help with a specific command.',
                 raw: true,
             }
         ]);
@@ -590,31 +583,31 @@ build(opts, config) {
                 content: command.description,
             },
             {
-                header: &#x27;Command Options&#x27;,
+                header: 'Command Options',
                 optionList: command.args
             },
             {
-                header: &#x27;Global Options&#x27;,
+                header: 'Global Options',
                 optionList: args_1.globalArguments
             },
         ]);
     }
     run(options, _config) {
-        return new Promise((resolve, _) =&#x3e; {
+        return new Promise((resolve, _) =&gt; {
             if (!options || !options.command) {
-                logger.debug(&#x27;no command given, printing general help...&#x27;, { options: options });
+                logger.debug('no command given, printing general help...', { options: options });
                 console.log(this.generateGeneralUsage());
                 resolve(null);
                 return;
             }
             let command = this.commands.get(options.command);
             if (!command) {
-                logger.error(`&#x27;${options.command}&#x27; is not an available command.`);
+                logger.error(`'${options.command}' is not an available command.`);
                 console.log(this.generateGeneralUsage());
                 resolve(null);
                 return;
             }
-            logger.debug(`printing help for command &#x27;${command.name}&#x27;...`);
+            logger.debug(`printing help for command '${command.name}'...`);
             console.log(this.generateCommandUsage(command));
             resolve(null);
         });
@@ -639,12 +632,12 @@ build(opts, config) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">class InitCommand {
     constructor() {
-        this.name = &#x27;init&#x27;;
-        this.description = &#x27;Initializes a Polymer project&#x27;;
+        this.name = 'init';
+        this.description = 'Initializes a Polymer project';
         this.args = [
             {
-                name: &#x27;name&#x27;,
-                description: &#x27;The template name to use to initialize the project&#x27;,
+                name: 'name',
+                description: 'The template name to use to initialize the project',
                 type: String,
                 defaultOption: true,
             }
@@ -652,17 +645,17 @@ build(opts, config) {
     }
     run(options, _config) {
         // Defer dependency loading until needed
-        const polymerInit = require(&#x27;../init/init&#x27;);
+        const polymerInit = require('../init/init');
         if (options.name) {
             let templateName = options.name;
             let generatorName = `polymer-init-${templateName}:app`;
-            logger.debug(&#x27;template name provided&#x27;, {
+            logger.debug('template name provided', {
                 generator: generatorName,
                 template: templateName,
             });
             return polymerInit.runGenerator(generatorName, options);
         }
-        logger.debug(&#x27;no template name provided, prompting user...&#x27;);
+        logger.debug('no template name provided, prompting user...');
         return polymerInit.promptGeneratorSelection();
     }
 }</pre></li>
@@ -685,61 +678,61 @@ build(opts, config) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">class LintCommand {
     constructor() {
-        this.name = &#x27;lint&#x27;;
-        this.description = &#x27;Lints the project&#x27;;
+        this.name = 'lint';
+        this.description = 'Lints the project';
         this.args = [
             {
-                name: &#x27;input&#x27;,
+                name: 'input',
                 type: String,
-                alias: &#x27;i&#x27;,
+                alias: 'i',
                 defaultOption: true,
                 multiple: true,
-                description: &#x27;Files and/or folders to lint. Exclusive. Defaults to cwd.&#x27;
+                description: 'Files and/or folders to lint. Exclusive. Defaults to cwd.'
             },
             {
-                name: &#x27;policy&#x27;,
+                name: 'policy',
                 type: String,
-                alias: &#x27;p&#x27;,
-                description: &#x27;Your jsconf.json policy file.&#x27;,
+                alias: 'p',
+                description: 'Your jsconf.json policy file.',
                 defaultValue: null
             },
             {
-                name: &#x27;config-file&#x27;,
+                name: 'config-file',
                 type: String,
-                defaultValue: &#x27;bower.json&#x27;,
-                description: (&#x27;If inputs are specified, look for `config-field` in this JSON file.&#x27;)
+                defaultValue: 'bower.json',
+                description: ('If inputs are specified, look for `config-field` in this JSON file.')
             },
             {
-                name: &#x27;config-field&#x27;,
+                name: 'config-field',
                 type: String,
-                defaultValue: &#x27;main&#x27;,
-                description: (&#x27;If config-file is used for inputs, this field determines which &#x27; +
-                    &#x27;file(s) are linted.&#x27;)
+                defaultValue: 'main',
+                description: ('If config-file is used for inputs, this field determines which ' +
+                    'file(s) are linted.')
             },
             {
-                name: &#x27;follow-dependencies&#x27;,
+                name: 'follow-dependencies',
                 type: Boolean,
-                description: (&#x27;Follow through and lint dependencies. This is default behavior &#x27; +
-                    &#x27;when linting your entire application via the entrypoint, shell, &#x27; +
-                    &#x27;and fragment arguments.&#x27;)
+                description: ('Follow through and lint dependencies. This is default behavior ' +
+                    'when linting your entire application via the entrypoint, shell, ' +
+                    'and fragment arguments.')
             },
             {
-                name: &#x27;no-follow-dependencies&#x27;,
+                name: 'no-follow-dependencies',
                 type: Boolean,
-                description: (&#x27;Only lint the files provided, ignoring dependencies. This is &#x27; +
-                    &#x27;default behavior when linting a specific list of files provided &#x27; +
-                    &#x27;via the input argument.&#x27;)
+                description: ('Only lint the files provided, ignoring dependencies. This is ' +
+                    'default behavior when linting a specific list of files provided ' +
+                    'via the input argument.')
             }
         ];
     }
     run(options, config) {
         // Defer dependency loading until this specific command is run
-        const polylint = require(&#x27;polylint/lib/cli&#x27;);
+        const polylint = require('polylint/lib/cli');
         let lintFiles = options.input
-            || config.inputs.map((i) =&#x3e; i.substring(config.root.length));
+            || config.inputs.map((i) =&gt; i.substring(config.root.length));
         if (lintFiles.length === 0) {
-            logger.warn(&#x27;No inputs specified. Please use the --input, --entrypoint, &#x27; +
-                &#x27;--shell or --fragment flags&#x27;);
+            logger.warn('No inputs specified. Please use the --input, --entrypoint, ' +
+                '--shell or --fragment flags');
             let argsCli = commandLineArgs(this.args);
             console.info(argsCli.getUsage({
                 title: `polymer ${this.name}`,
@@ -749,23 +742,23 @@ build(opts, config) {
         }
         // Default to false if input files are provided, otherwise default to true
         let followDependencies = !options.input;
-        if (options[&#x27;follow-dependencies&#x27;]) {
+        if (options['follow-dependencies']) {
             followDependencies = true;
         }
-        else if (options[&#x27;no-follow-dependencies&#x27;]) {
+        else if (options['no-follow-dependencies']) {
             followDependencies = false;
         }
         return polylint.runWithOptions({
             input: lintFiles,
             root: config.root,
             // TODO: read into config
-            bowerdir: &#x27;bower_components&#x27;,
+            bowerdir: 'bower_components',
             policy: options.policy,
-            &#x27;config-file&#x27;: options[&#x27;config-file&#x27;],
-            &#x27;config-field&#x27;: options[&#x27;config-field&#x27;],
+            'config-file': options['config-file'],
+            'config-field': options['config-field'],
             // NOTE: `no-recursion` has the opposite behavior of `follow-dependencies`
-            &#x27;no-recursion&#x27;: !followDependencies,
-        }).then(() =&#x3e; null);
+            'no-recursion': !followDependencies,
+        }).then(() =&gt; null);
     }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -787,24 +780,24 @@ build(opts, config) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">class ProjectConfig {
     constructor(defaultOptions, overrideOptions) {
-        if (typeof defaultOptions === &#x27;string&#x27;) {
+        if (typeof defaultOptions === 'string') {
             defaultOptions = ProjectConfig.fromConfigFile(defaultOptions) || {};
         }
         this._init(defaultOptions, overrideOptions);
     }
     static fromConfigFile(filepath) {
         try {
-            let configContent = fs.readFileSync(filepath, &#x27;utf-8&#x27;);
+            let configContent = fs.readFileSync(filepath, 'utf-8');
             return JSON.parse(configContent);
         }
         catch (error) {
-            // swallow &#x22;not found&#x22; errors because they are so common / expected
-            if (error.code === &#x27;ENOENT&#x27;) {
-                logger.debug(&#x27;no polymer config file found&#x27;, { file: filepath });
+            // swallow "not found" errors because they are so common / expected
+            if (error.code === 'ENOENT') {
+                logger.debug('no polymer config file found', { file: filepath });
                 return;
             }
             // throw all other errors when a config exists but was not properly read
-            logger.error(&#x27;Failed to load/parse polymer config file&#x27;, {
+            logger.error('Failed to load/parse polymer config file', {
                 file: filepath,
                 err: error.message,
             });
@@ -815,7 +808,7 @@ build(opts, config) {
         let options = Object.assign({}, defaultOptions, overrideOptions);
         this.root = process.cwd();
         this.sourceGlobs = options.sources || options.sourceGlobs || exports.defaultSourceGlobs;
-        this.includeDependencies = options[&#x27;include-dependencies&#x27;] || options.includeDependencies;
+        this.includeDependencies = options['include-dependencies'] || options.includeDependencies;
         if (options.root) {
             this.root = path.resolve(this.root, options.root);
         }
@@ -824,11 +817,11 @@ build(opts, config) {
         }
         else {
             // fallback
-            this.entrypoint = path.resolve(this.root, &#x27;index.html&#x27;);
+            this.entrypoint = path.resolve(this.root, 'index.html');
             try {
-                let bowerConfigContent = fs.readFileSync(path.resolve(this.root, &#x27;bower.json&#x27;), &#x27;utf-8&#x27;);
+                let bowerConfigContent = fs.readFileSync(path.resolve(this.root, 'bower.json'), 'utf-8');
                 let bowerConfig = JSON.parse(bowerConfigContent);
-                if (bowerConfig.main &#x26;&#x26; typeof bowerConfig.main === &#x27;string&#x27;) {
+                if (bowerConfig.main &amp;&amp; typeof bowerConfig.main === 'string') {
                     this.entrypoint = path.resolve(this.root, bowerConfig.main);
                 }
             }
@@ -842,7 +835,7 @@ build(opts, config) {
         // fragment comes from command-line-args `--fragment`
         let frag = options.fragment || options.fragments;
         if (frag) {
-            this.fragments = frag.map((e) =&#x3e; path.resolve(this.root, e));
+            this.fragments = frag.map((e) =&gt; path.resolve(this.root, e));
         }
         this.inputs = [];
         if (this.entrypoint)
@@ -873,34 +866,34 @@ build(opts, config) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">class ReyServe {
     build(opts, config) {
-        const bundled = path.join(process.cwd(), &#x27;build/bundled&#x27;);
-        const unbundled = path.join(process.cwd(), &#x27;build/unbundled&#x27;);
-        const reyserveFiles = temp.mkdirSync(&#x27;reyserve&#x27;);
-        return build_1.build(opts, config).then(() =&#x3e; {
-            console.log(&#x27;Downloading reyserve release&#x27;);
-            const repo = new github_1.Github({ owner: &#x27;Polymer&#x27;, repo: &#x27;reyserve&#x27; });
+        const bundled = path.join(process.cwd(), 'build/bundled');
+        const unbundled = path.join(process.cwd(), 'build/unbundled');
+        const reyserveFiles = temp.mkdirSync('reyserve');
+        return build_1.build(opts, config).then(() =&gt; {
+            console.log('Downloading reyserve release');
+            const repo = new github_1.Github({ owner: 'Polymer', repo: 'reyserve' });
             return repo.extractLatestRelease(reyserveFiles);
         })
-            .then(() =&#x3e; {
-            console.log(&#x27;Coyping reyserve files&#x27;);
+            .then(() =&gt; {
+            console.log('Coyping reyserve files');
             // TODO(garlicnation): One server serves bundled and unbundled.
-            REYSERVE_FILES.forEach((file) =&#x3e; {
+            REYSERVE_FILES.forEach((file) =&gt; {
                 fs.copySync(path.join(reyserveFiles, file), path.join(bundled, file));
                 fs.copySync(path.join(reyserveFiles, file), path.join(unbundled, file));
             });
         });
     }
     serve(options) {
-        return new Promise((resolve, reject) =&#x3e; {
-            console.log(&#x27;Launching reyserve dev server&#x27;);
-            let devServer = child_process.spawn(&#x27;dev_appserver.py&#x27;, [&#x27;app.yaml&#x27;], {
-                stdio: &#x27;inherit&#x27;,
+        return new Promise((resolve, reject) =&gt; {
+            console.log('Launching reyserve dev server');
+            let devServer = child_process.spawn('dev_appserver.py', ['app.yaml'], {
+                stdio: 'inherit',
                 cwd: options.root
             });
-            devServer.on(&#x27;close&#x27;, (code) =&#x3e; {
+            devServer.on('close', (code) =&gt; {
                 resolve(code);
             });
-            devServer.on(&#x27;error&#x27;, (error) =&#x3e; {
+            devServer.on('error', (error) =&gt; {
                 reject(error);
             });
         });
@@ -926,62 +919,62 @@ build(opts, config) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">class ServeCommand {
     constructor() {
-        this.name = &#x27;serve&#x27;;
-        this.description = &#x27;Runs the polyserve development server&#x27;;
+        this.name = 'serve';
+        this.description = 'Runs the polyserve development server';
         this.args = [
             {
-                name: &#x27;port&#x27;,
-                alias: &#x27;p&#x27;,
-                description: &#x27;The port to serve from. Defaults to 8080&#x27;,
+                name: 'port',
+                alias: 'p',
+                description: 'The port to serve from. Defaults to 8080',
                 type: Number,
             },
             {
-                name: &#x27;hostname&#x27;,
-                alias: &#x27;H&#x27;,
-                description: &#x27;The hostname to serve from. Defaults to localhost&#x27;,
+                name: 'hostname',
+                alias: 'H',
+                description: 'The hostname to serve from. Defaults to localhost',
                 type: String,
             },
             {
-                name: &#x27;package-name&#x27;,
-                alias: &#x27;n&#x27;,
-                description: &#x27;The package name to use for the root directory. Defaults &#x27; +
-                    &#x27;to reading from bower.json&#x27;,
+                name: 'package-name',
+                alias: 'n',
+                description: 'The package name to use for the root directory. Defaults ' +
+                    'to reading from bower.json',
                 type: String,
             },
             {
-                name: &#x27;open&#x27;,
-                alias: &#x27;o&#x27;,
-                description: &#x27;The page to open in the default browser on startup.&#x27;,
+                name: 'open',
+                alias: 'o',
+                description: 'The page to open in the default browser on startup.',
                 type: Boolean,
             },
             {
-                name: &#x27;browser&#x27;,
-                alias: &#x27;b&#x27;,
-                description: &#x27;The browser(s) to open with when using the --open option.&#x27; +
-                    &#x27; Defaults to your default web browser.&#x27;,
+                name: 'browser',
+                alias: 'b',
+                description: 'The browser(s) to open with when using the --open option.' +
+                    ' Defaults to your default web browser.',
                 type: String,
                 multiple: true,
             },
             {
-                name: &#x27;open-path&#x27;,
-                description: &#x27;The URL path to open when using the --open option.&#x27; +
-                    &#x27; Defaults to &#x22;index.html&#x22;.&#x27;,
+                name: 'open-path',
+                description: 'The URL path to open when using the --open option.' +
+                    ' Defaults to "index.html".',
                 type: String,
             },
             {
-                name: &#x27;root&#x27;,
+                name: 'root',
                 defaultOption: true,
             },
         ];
     }
     run(options, config) {
         // Defer dependency loading until this specific command is run
-        const polyserve = require(&#x27;polyserve&#x27;);
+        const polyserve = require('polyserve');
         let openPath;
-        if (config.entrypoint &#x26;&#x26; config.shell) {
+        if (config.entrypoint &amp;&amp; config.shell) {
             openPath = config.entrypoint.substring(config.root.length);
-            if (openPath === &#x27;index.html&#x27; || openPath === &#x27;/index.html&#x27;) {
-                openPath = &#x27;/&#x27;;
+            if (openPath === 'index.html' || openPath === '/index.html') {
+                openPath = '/';
             }
         }
         let serverOptions = {
@@ -991,17 +984,17 @@ build(opts, config) {
             open: options.open,
             openPath: openPath,
             browser: options.browser,
-            componentDir: options[&#x27;component-dir&#x27;],
-            packageName: options[&#x27;package-name&#x27;],
+            componentDir: options['component-dir'],
+            packageName: options['package-name'],
         };
-        logger.debug(&#x27;serving with options&#x27;, serverOptions);
+        logger.debug('serving with options', serverOptions);
         const env = options.env;
-        if (env &#x26;&#x26; env.serve) {
-            logger.debug(&#x27;env.serve() found in options&#x27;);
-            logger.debug(&#x27;serving via env.serve()...&#x27;);
+        if (env &amp;&amp; env.serve) {
+            logger.debug('env.serve() found in options');
+            logger.debug('serving via env.serve()...');
             return env.serve(serverOptions);
         }
-        logger.debug(&#x27;serving via polyserve.startServer()...&#x27;);
+        logger.debug('serving via polyserve.startServer()...');
         return polyserve.startServer(serverOptions);
     }
 }</pre></li>
@@ -1017,3 +1010,4 @@ build(opts, config) {
     ]
 </div>
 </div>
+</body></html>

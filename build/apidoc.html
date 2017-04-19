@@ -72,7 +72,114 @@
 
         <li>
 
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">polymer-cli.</span>environments</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">polymer-cli.</span>github</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">polymer-cli.</span>help</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">polymer-cli.</span>init</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">polymer-cli.</span>lint</span>
+
+        </li>
+
+        <li>
+
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">polymer-cli.</span>project_config</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">polymer-cli.</span>reyserve</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">polymer-cli.</span>serve</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.polymer-cli.environments">module polymer-cli.environments</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.polymer-cli.environments.buildEnvironment">
+            function <span class="apidocSignatureSpan">polymer-cli.environments.</span>buildEnvironment
+            <span class="apidocSignatureSpan">(name)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.polymer-cli.github">module polymer-cli.github</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.polymer-cli.github.Github">
+            function <span class="apidocSignatureSpan">polymer-cli.github.</span>Github
+            <span class="apidocSignatureSpan">(opts)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.polymer-cli.help">module polymer-cli.help</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.polymer-cli.help.HelpCommand">
+            function <span class="apidocSignatureSpan">polymer-cli.help.</span>HelpCommand
+            <span class="apidocSignatureSpan">(commands)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.polymer-cli.init">module polymer-cli.init</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.polymer-cli.init.InitCommand">
+            function <span class="apidocSignatureSpan">polymer-cli.init.</span>InitCommand
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.polymer-cli.lint">module polymer-cli.lint</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.polymer-cli.lint.LintCommand">
+            function <span class="apidocSignatureSpan">polymer-cli.lint.</span>LintCommand
+            <span class="apidocSignatureSpan">()</span>
+            </a>
 
         </li>
 
@@ -92,6 +199,32 @@
         <li>
 
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">polymer-cli.project_config.</span>defaultSourceGlobs</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.polymer-cli.reyserve">module polymer-cli.reyserve</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.polymer-cli.reyserve.ReyServe">
+            function <span class="apidocSignatureSpan">polymer-cli.reyserve.</span>ReyServe
+            <span class="apidocSignatureSpan">(opts, config)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.polymer-cli.serve">module polymer-cli.serve</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.polymer-cli.serve.ServeCommand">
+            function <span class="apidocSignatureSpan">polymer-cli.serve.</span>ServeCommand
+            <span class="apidocSignatureSpan">()</span>
+            </a>
 
         </li>
 
@@ -203,10 +336,440 @@
         catch (error) {
             // Polymer CLI needs a valid command name to do anything. If the given
             // command is invalid, run t ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+// notify on the next time the CLI is run.
+// See https://github.com/yeoman/update-notifier#how for how this works.
+updateNotifier({pkg: packageJson}).notify();
+
+resolve(&#x27;polymer-cli&#x27;, {basedir: process.cwd()}, function(error, path) {
+let lib = path ? require(path) : require(&#x27;..&#x27;);
+let args = process.argv.slice(2);
+let cli = new lib.<span class="apidocCodeKeywordSpan">PolymerCli</span>(args);
+cli.run().catch((err) =&#x3e; {
+  logger.error(`cli runtime exception: ${err}`);
+  if (err.stack) {
+    logger.error(err.stack);
+  }
+  process.exit(1);
+});
+...</pre></li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.polymer-cli.environments" id="apidoc.module.polymer-cli.environments">module polymer-cli.environments</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.polymer-cli.environments.buildEnvironment" id="apidoc.element.polymer-cli.environments.buildEnvironment">
+        function <span class="apidocSignatureSpan">polymer-cli.environments.</span>buildEnvironment
+        <span class="apidocSignatureSpan">(name)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function buildEnvironment(name) {
+    return environments.has(name) &#x26;&#x26; new (environments.get(name.toLowerCase()))();
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+const environments_1 = require(&#x27;./environments/environments&#x27;);
+exports.globalArguments = [
+{
+    name: &#x27;env&#x27;,
+    description: &#x27;The environment to use to specialize certain commands, &#x27;
+        + &#x27;like build&#x27;,
+    type: function (value) {
+        return environments_1.<span class="apidocCodeKeywordSpan">buildEnvironment</span>(value);
+    },
+    group: &#x27;global&#x27;,
+},
+{
+    name: &#x27;entrypoint&#x27;,
+    description: &#x27;The main HTML file that will be requested for all routes.&#x27;,
+    group: &#x27;global&#x27;,
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.polymer-cli.github" id="apidoc.module.polymer-cli.github">module polymer-cli.github</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.polymer-cli.github.Github" id="apidoc.element.polymer-cli.github.Github">
+        function <span class="apidocSignatureSpan">polymer-cli.github.</span>Github
+        <span class="apidocSignatureSpan">(opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">class Github {
+    constructor(opts) {
+        this._token = opts.githubToken || Github.tokenFromFile(&#x27;token&#x27;);
+        this._owner = opts.owner;
+        this._repo = opts.repo;
+        this._github = opts.githubApi || new GitHubApi({
+            version: &#x27;3.0.0&#x27;,
+            protocol: &#x27;https&#x27;,
+        });
+        if (this._token != null) {
+            this._github.authenticate({
+                type: &#x27;oauth&#x27;,
+                token: this._token,
+            });
+        }
+        this._request = opts.requestApi || request;
+    }
+    static tokenFromFile(filename) {
+        try {
+            return fs.readFileSync(filename, &#x27;utf8&#x27;).trim();
+        }
+        catch (error) {
+            return null;
+        }
+    }
+    extractLatestRelease(outDir) {
+        return new Promise((resolve, reject) =&#x3e; {
+            let tarPipe = tar.extract(outDir, {
+                ignore: (_, header) =&#x3e; {
+                    let splitPath = path.normalize(header.name).split(path.sep);
+                    // ignore the top directory in the tarfile to unpack directly to
+                    // the cwd
+                    return splitPath.length &#x3c; 1 || splitPath[1] === &#x27;&#x27;;
+                },
+                map: (header) =&#x3e; {
+                    let splitPath = path.normalize(header.name).split(path.sep);
+                    let unprefixed = splitPath.slice(1).join(path.sep).trim();
+                    // A ./ prefix is needed to unpack top-level files in the tar,
+                    // otherwise they&#x27;re just not written
+                    header.name = path.join(&#x27;.&#x27;, unprefixed);
+                    return header;
+                },
+            });
+            this.getLatestRelease().then((release) =&#x3e; {
+                let tarballUrl = release.tarball_url;
+                this._request({
+                    url: tarballUrl,
+                    headers: {
+                        &#x27;User-Agent&#x27;: &#x27;request&#x27;,
+                        &#x27;Authorization&#x27;: (this._token) ? `token ${this._token}` : undefined,
+                    }
+                })
+                    .on(&#x27;response&#x27;, function (response) {
+                    if (response.statusCode !== 200) {
+                        throw new GithubResponseError(response.statusCode, response.statusMessage);
+                    }
+                    logger.info(&#x27;Unpacking template files&#x27;);
+                })
+                    .pipe(gunzip())
+                    .pipe(tarPipe)
+                    .on(&#x27;finish&#x27;, () =&#x3e; {
+                    logger.info(&#x27;Finished writing template files&#x27;);
+                    resolve();
+                })
+                    .on(&#x27;error&#x27;, (error) =&#x3e; {
+                    throw error;
+                });
+            })
+                .catch((error) =&#x3e; {
+                reject(error);
+            });
+        });
+    }
+    getLatestRelease() {
+        return new Promise((resolve, reject) =&#x3e; {
+            this._github.repos.getReleases({
+                owner: this._owner,
+                repo: this._repo,
+                per_page: 1,
+            }, (error, result) =&#x3e; {
+                if (error) {
+                    reject(error);
+                    return;
+                }
+                if (result.length === 0) {
+                    reject(new Error(`${this._owner}/${this._repo} has 0 releases. ` +
+                        &#x27;Cannot get latest release.&#x27;));
+                    return;
+                }
+                resolve(result[0]);
+            });
+        });
+    }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+class ReyServe {
+build(opts, config) {
+    const bundled = path.join(process.cwd(), &#x27;build/bundled&#x27;);
+    const unbundled = path.join(process.cwd(), &#x27;build/unbundled&#x27;);
+    const reyserveFiles = temp.mkdirSync(&#x27;reyserve&#x27;);
+    return build_1.build(opts, config).then(() =&#x3e; {
+        console.log(&#x27;Downloading reyserve release&#x27;);
+        const repo = new github_1.<span class="apidocCodeKeywordSpan">Github</span>({ owner: &#x27;Polymer&#x27;, repo: &#x27;reyserve
+&#x27; });
+        return repo.extractLatestRelease(reyserveFiles);
+    })
+        .then(() =&#x3e; {
+        console.log(&#x27;Coyping reyserve files&#x27;);
+        // TODO(garlicnation): One server serves bundled and unbundled.
+        REYSERVE_FILES.forEach((file) =&#x3e; {
+            fs.copySync(path.join(reyserveFiles, file), path.join(bundled, file));
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.polymer-cli.help" id="apidoc.module.polymer-cli.help">module polymer-cli.help</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.polymer-cli.help.HelpCommand" id="apidoc.element.polymer-cli.help.HelpCommand">
+        function <span class="apidocSignatureSpan">polymer-cli.help.</span>HelpCommand
+        <span class="apidocSignatureSpan">(commands)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">class HelpCommand {
+    constructor(commands) {
+        this.name = &#x27;help&#x27;;
+        this.description = &#x27;Shows this help message, or help for a specific command&#x27;;
+        this.args = [{
+                name: &#x27;command&#x27;,
+                description: &#x27;The command to display help for&#x27;,
+                defaultOption: true,
+            }];
+        this.commands = new Map();
+        this.commands = commands;
+    }
+    generateGeneralUsage() {
+        return commandLineUsage([
+            {
+                content: HELP_HEADER,
+                raw: true,
+            },
+            {
+                header: &#x27;Available Commands&#x27;,
+                content: Array.from(this.commands.values()).map((command) =&#x3e; {
+                    return { name: command.name, summary: command.description };
+                }),
+            },
+            {
+                header: &#x27;Global Options&#x27;,
+                optionList: args_1.globalArguments
+            },
+            {
+                content: &#x27;Run `polymer help &#x3c;command&#x3e;` for help with a specific command.&#x27;,
+                raw: true,
+            }
+        ]);
+    }
+    generateCommandUsage(command) {
+        return commandLineUsage([
+            {
+                header: `polymer ${command.name}`,
+                content: command.description,
+            },
+            {
+                header: &#x27;Command Options&#x27;,
+                optionList: command.args
+            },
+            {
+                header: &#x27;Global Options&#x27;,
+                optionList: args_1.globalArguments
+            },
+        ]);
+    }
+    run(options, _config) {
+        return new Promise((resolve, _) =&#x3e; {
+            if (!options || !options.command) {
+                logger.debug(&#x27;no command given, printing general help...&#x27;, { options: options });
+                console.log(this.generateGeneralUsage());
+                resolve(null);
+                return;
+            }
+            let command = this.commands.get(options.command);
+            if (!command) {
+                logger.error(`&#x27;${options.command}&#x27; is not an available command.`);
+                console.log(this.generateGeneralUsage());
+                resolve(null);
+                return;
+            }
+            logger.debug(`printing help for command &#x27;${command.name}&#x27;...`);
+            console.log(this.generateCommandUsage(command));
+            resolve(null);
+        });
+    }
+}</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
 
 
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.polymer-cli.init" id="apidoc.module.polymer-cli.init">module polymer-cli.init</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.polymer-cli.init.InitCommand" id="apidoc.element.polymer-cli.init.InitCommand">
+        function <span class="apidocSignatureSpan">polymer-cli.init.</span>InitCommand
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">class InitCommand {
+    constructor() {
+        this.name = &#x27;init&#x27;;
+        this.description = &#x27;Initializes a Polymer project&#x27;;
+        this.args = [
+            {
+                name: &#x27;name&#x27;,
+                description: &#x27;The template name to use to initialize the project&#x27;,
+                type: String,
+                defaultOption: true,
+            }
+        ];
+    }
+    run(options, _config) {
+        // Defer dependency loading until needed
+        const polymerInit = require(&#x27;../init/init&#x27;);
+        if (options.name) {
+            let templateName = options.name;
+            let generatorName = `polymer-init-${templateName}:app`;
+            logger.debug(&#x27;template name provided&#x27;, {
+                generator: generatorName,
+                template: templateName,
+            });
+            return polymerInit.runGenerator(generatorName, options);
+        }
+        logger.debug(&#x27;no template name provided, prompting user...&#x27;);
+        return polymerInit.promptGeneratorSelection();
+    }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.polymer-cli.lint" id="apidoc.module.polymer-cli.lint">module polymer-cli.lint</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.polymer-cli.lint.LintCommand" id="apidoc.element.polymer-cli.lint.LintCommand">
+        function <span class="apidocSignatureSpan">polymer-cli.lint.</span>LintCommand
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">class LintCommand {
+    constructor() {
+        this.name = &#x27;lint&#x27;;
+        this.description = &#x27;Lints the project&#x27;;
+        this.args = [
+            {
+                name: &#x27;input&#x27;,
+                type: String,
+                alias: &#x27;i&#x27;,
+                defaultOption: true,
+                multiple: true,
+                description: &#x27;Files and/or folders to lint. Exclusive. Defaults to cwd.&#x27;
+            },
+            {
+                name: &#x27;policy&#x27;,
+                type: String,
+                alias: &#x27;p&#x27;,
+                description: &#x27;Your jsconf.json policy file.&#x27;,
+                defaultValue: null
+            },
+            {
+                name: &#x27;config-file&#x27;,
+                type: String,
+                defaultValue: &#x27;bower.json&#x27;,
+                description: (&#x27;If inputs are specified, look for `config-field` in this JSON file.&#x27;)
+            },
+            {
+                name: &#x27;config-field&#x27;,
+                type: String,
+                defaultValue: &#x27;main&#x27;,
+                description: (&#x27;If config-file is used for inputs, this field determines which &#x27; +
+                    &#x27;file(s) are linted.&#x27;)
+            },
+            {
+                name: &#x27;follow-dependencies&#x27;,
+                type: Boolean,
+                description: (&#x27;Follow through and lint dependencies. This is default behavior &#x27; +
+                    &#x27;when linting your entire application via the entrypoint, shell, &#x27; +
+                    &#x27;and fragment arguments.&#x27;)
+            },
+            {
+                name: &#x27;no-follow-dependencies&#x27;,
+                type: Boolean,
+                description: (&#x27;Only lint the files provided, ignoring dependencies. This is &#x27; +
+                    &#x27;default behavior when linting a specific list of files provided &#x27; +
+                    &#x27;via the input argument.&#x27;)
+            }
+        ];
+    }
+    run(options, config) {
+        // Defer dependency loading until this specific command is run
+        const polylint = require(&#x27;polylint/lib/cli&#x27;);
+        let lintFiles = options.input
+            || config.inputs.map((i) =&#x3e; i.substring(config.root.length));
+        if (lintFiles.length === 0) {
+            logger.warn(&#x27;No inputs specified. Please use the --input, --entrypoint, &#x27; +
+                &#x27;--shell or --fragment flags&#x27;);
+            let argsCli = commandLineArgs(this.args);
+            console.info(argsCli.getUsage({
+                title: `polymer ${this.name}`,
+                description: this.description,
+            }));
+            return Promise.resolve();
+        }
+        // Default to false if input files are provided, otherwise default to true
+        let followDependencies = !options.input;
+        if (options[&#x27;follow-dependencies&#x27;]) {
+            followDependencies = true;
+        }
+        else if (options[&#x27;no-follow-dependencies&#x27;]) {
+            followDependencies = false;
+        }
+        return polylint.runWithOptions({
+            input: lintFiles,
+            root: config.root,
+            // TODO: read into config
+            bowerdir: &#x27;bower_components&#x27;,
+            policy: options.policy,
+            &#x27;config-file&#x27;: options[&#x27;config-file&#x27;],
+            &#x27;config-field&#x27;: options[&#x27;config-field&#x27;],
+            // NOTE: `no-recursion` has the opposite behavior of `follow-dependencies`
+            &#x27;no-recursion&#x27;: !followDependencies,
+        }).then(() =&#x3e; null);
+    }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
 
 
 </div>
@@ -293,6 +856,157 @@
     </ul>
 
 
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.polymer-cli.reyserve" id="apidoc.module.polymer-cli.reyserve">module polymer-cli.reyserve</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.polymer-cli.reyserve.ReyServe" id="apidoc.element.polymer-cli.reyserve.ReyServe">
+        function <span class="apidocSignatureSpan">polymer-cli.reyserve.</span>ReyServe
+        <span class="apidocSignatureSpan">(opts, config)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">class ReyServe {
+    build(opts, config) {
+        const bundled = path.join(process.cwd(), &#x27;build/bundled&#x27;);
+        const unbundled = path.join(process.cwd(), &#x27;build/unbundled&#x27;);
+        const reyserveFiles = temp.mkdirSync(&#x27;reyserve&#x27;);
+        return build_1.build(opts, config).then(() =&#x3e; {
+            console.log(&#x27;Downloading reyserve release&#x27;);
+            const repo = new github_1.Github({ owner: &#x27;Polymer&#x27;, repo: &#x27;reyserve&#x27; });
+            return repo.extractLatestRelease(reyserveFiles);
+        })
+            .then(() =&#x3e; {
+            console.log(&#x27;Coyping reyserve files&#x27;);
+            // TODO(garlicnation): One server serves bundled and unbundled.
+            REYSERVE_FILES.forEach((file) =&#x3e; {
+                fs.copySync(path.join(reyserveFiles, file), path.join(bundled, file));
+                fs.copySync(path.join(reyserveFiles, file), path.join(unbundled, file));
+            });
+        });
+    }
+    serve(options) {
+        return new Promise((resolve, reject) =&#x3e; {
+            console.log(&#x27;Launching reyserve dev server&#x27;);
+            let devServer = child_process.spawn(&#x27;dev_appserver.py&#x27;, [&#x27;app.yaml&#x27;], {
+                stdio: &#x27;inherit&#x27;,
+                cwd: options.root
+            });
+            devServer.on(&#x27;close&#x27;, (code) =&#x3e; {
+                resolve(code);
+            });
+            devServer.on(&#x27;error&#x27;, (error) =&#x3e; {
+                reject(error);
+            });
+        });
+    }
+    ;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.polymer-cli.serve" id="apidoc.module.polymer-cli.serve">module polymer-cli.serve</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.polymer-cli.serve.ServeCommand" id="apidoc.element.polymer-cli.serve.ServeCommand">
+        function <span class="apidocSignatureSpan">polymer-cli.serve.</span>ServeCommand
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">class ServeCommand {
+    constructor() {
+        this.name = &#x27;serve&#x27;;
+        this.description = &#x27;Runs the polyserve development server&#x27;;
+        this.args = [
+            {
+                name: &#x27;port&#x27;,
+                alias: &#x27;p&#x27;,
+                description: &#x27;The port to serve from. Defaults to 8080&#x27;,
+                type: Number,
+            },
+            {
+                name: &#x27;hostname&#x27;,
+                alias: &#x27;H&#x27;,
+                description: &#x27;The hostname to serve from. Defaults to localhost&#x27;,
+                type: String,
+            },
+            {
+                name: &#x27;package-name&#x27;,
+                alias: &#x27;n&#x27;,
+                description: &#x27;The package name to use for the root directory. Defaults &#x27; +
+                    &#x27;to reading from bower.json&#x27;,
+                type: String,
+            },
+            {
+                name: &#x27;open&#x27;,
+                alias: &#x27;o&#x27;,
+                description: &#x27;The page to open in the default browser on startup.&#x27;,
+                type: Boolean,
+            },
+            {
+                name: &#x27;browser&#x27;,
+                alias: &#x27;b&#x27;,
+                description: &#x27;The browser(s) to open with when using the --open option.&#x27; +
+                    &#x27; Defaults to your default web browser.&#x27;,
+                type: String,
+                multiple: true,
+            },
+            {
+                name: &#x27;open-path&#x27;,
+                description: &#x27;The URL path to open when using the --open option.&#x27; +
+                    &#x27; Defaults to &#x22;index.html&#x22;.&#x27;,
+                type: String,
+            },
+            {
+                name: &#x27;root&#x27;,
+                defaultOption: true,
+            },
+        ];
+    }
+    run(options, config) {
+        // Defer dependency loading until this specific command is run
+        const polyserve = require(&#x27;polyserve&#x27;);
+        let openPath;
+        if (config.entrypoint &#x26;&#x26; config.shell) {
+            openPath = config.entrypoint.substring(config.root.length);
+            if (openPath === &#x27;index.html&#x27; || openPath === &#x27;/index.html&#x27;) {
+                openPath = &#x27;/&#x27;;
+            }
+        }
+        let serverOptions = {
+            root: config.root,
+            port: options.port,
+            hostname: options.hostname,
+            open: options.open,
+            openPath: openPath,
+            browser: options.browser,
+            componentDir: options[&#x27;component-dir&#x27;],
+            packageName: options[&#x27;package-name&#x27;],
+        };
+        logger.debug(&#x27;serving with options&#x27;, serverOptions);
+        const env = options.env;
+        if (env &#x26;&#x26; env.serve) {
+            logger.debug(&#x27;env.serve() found in options&#x27;);
+            logger.debug(&#x27;serving via env.serve()...&#x27;);
+            return env.serve(serverOptions);
+        }
+        logger.debug(&#x27;serving via polyserve.startServer()...&#x27;);
+        return polyserve.startServer(serverOptions);
+    }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
 
 
 </div>
